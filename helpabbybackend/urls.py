@@ -15,11 +15,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from helpabbyapi import views
+from helpabbyapi import views, urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', views.home_page),
-    path('food/', views.food_page),
-    path('food/foodlist', views.getFoodlist)
+    path('', include(urls))
 ]

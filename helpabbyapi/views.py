@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Food
-from .api.serializers import FoodSerializer
+from .models import Food, Myth
+from .api.serializers import FoodSerializer, MythSerializer
 
 @api_view(['GET'])
 def hello_world(request):
@@ -18,8 +18,18 @@ def food_page(request):
 
 @api_view(['GET'])
 def getFoodlist(request):
-    if(request.method == 'GET'):
+    try:
         foods = Food.objects.all()
         serializer = FoodSerializer(foods, many=True)
         return Response(serializer.data)
-    return Response({'status': 'ERROR', 'message': 'Error to fetch all food data!'})
+    except Exception as e :
+        Response({'status': 'ERROR', 'message': 'The error is ' + e})
+
+@api_view(['GET'])
+def getMythlist(request):
+    try:
+        myths = Myth.objects.all()
+        serializer = MythSerializer(myths, many=True)
+        return Response(serializer.data)
+    except Exception as e :
+        Response({'status': 'ERROR', 'message': 'The error is ' + e})

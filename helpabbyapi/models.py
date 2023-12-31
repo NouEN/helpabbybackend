@@ -4,7 +4,7 @@ from django.db import models
 class Myth(models.Model):
     mythDesc = models.CharField(max_length=1000)
     factDesc = models.CharField(max_length=1000)
-    source = models.CharField(max_length=100)
+    source = models.CharField(max_length=1000)
 
 class Food(models.Model):
     foodName = models.CharField(max_length=1000)
