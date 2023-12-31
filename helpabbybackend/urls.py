@@ -15,8 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from helpabbyapi import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('helpabbyapi.urls'))
+    path('home/', views.home_page),
+    path('food/', views.food_page),
+    path('food/foodlist', views.getFoodlist)
 ]
