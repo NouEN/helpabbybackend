@@ -36,19 +36,33 @@ def getMythlist(request):
     except Exception as e :
         Response({'status': 'ERROR', 'message': 'The error is ' + e})
 
-@api_view(['GET','POST'])
 def validateUserInput(request):
     try:
         if(request.method == 'POST'):
-            if(request.data["age"] == 15 and request.data["height"] == 160 and request.data["weight"] == 85 and request.data["activityLevel"] == "Sedentary" and request.data["gender"] == "Female"):
-               return Response(request.data)
+            if not request.data:
+                return
+            elif(request.data["age"] == 15 and request.data["height"] == 160 and request.data["weight"] == 85 and request.data["activityLevel"] == "Sedentary" and request.data["gender"] == "Female"):
+               return request.data
             else :
-                return Response()
+                return request.data
     except Exception as e:
          Response({'status': 'ERROR', 'message': 'The error is ' + e})
 
 @api_view(['POST'])
 def calculateUserBMR(request):
-    response = validateUserInput(request)
-    
+    try:
+        response = validateUserInput(request).json()
+        if not response :
+            return
+        
+        age = response.get("age")
+        height = response.get("height")
+        weight = response.get("weight")
+        gender = response.get("gender")
+        activityLevel = response.get("activityLevel")
+
+        BMR = 9.247*weight + 3.098 * height - 4.330 * age + 447.593
+        return Response(BMR)
+    except Exception as e:
+         Response({'status': 'ERROR', 'message': 'The error is ' + e})
     
