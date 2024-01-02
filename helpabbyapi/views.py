@@ -38,31 +38,39 @@ def getMythlist(request):
 
 def validateUserInput(request):
     try:
-        if(request.method == 'POST'):
-            if not request.data:
-                return
-            elif(request.data["age"] == 15 and request.data["height"] == 160 and request.data["weight"] == 85 and request.data["activityLevel"] == "Sedentary" and request.data["gender"] == "Female"):
-               return request.data
-            else :
-                return request.data
+        print(request)
+        if(request.data["age"] == 15 and request.data["height"] == 160 and request.data["weight"] == 85 and request.data["activityLevel"] == "Sedentary" and request.data["gender"] == "Female"):
+            return True
+        else :
+            return False
     except Exception as e:
-         Response({'status': 'ERROR', 'message': 'The error is ' + e})
+         Response({'status': 'ERROR', 'message': 'The error is ' + str(e)})
 
 @api_view(['POST'])
-def calculateUserBMR(request):
+def calculateUserBMRandTDEE(request):
     try:
-        response = validateUserInput(request).json()
-        if not response :
-            return
-        
-        age = response.get("age")
-        height = response.get("height")
-        weight = response.get("weight")
-        gender = response.get("gender")
-        activityLevel = response.get("activityLevel")
+        response = validateUserInput(request)
+        if(response == False):
+            return Response({'message': 'That\'s not Abby\'s measurements! Try again!'})
+        elif(response == True):
+            age = int(request.data.get("age"))
+            height = int(request.data.get("height"))
+            weight = int(request.data.get("weight"))
+            gender = request.data.get("gender")
+            activityLevel = request.data.get("activityLevel")
+            if(gender == 'Female'):
+                BMR = 9.247 *weight + 3.098 * height - 4.330 * age + 447.593
+            elif(gender == 'Male'):
+                BMR = 13.397*weight + 4.799 * height - 5.677 * age + 88.362  
 
-        BMR = 9.247*weight + 3.098 * height - 4.330 * age + 447.593
-        return Response(BMR)
+            if(activityLevel == 'Sedentary'):
+                tdee = 1.2 * BMR
+            elif(activityLevel == 'Lightly Active'):
+                tdee = 1.375 * BMR
+            elif(activityLevel == 'Moderately Active'):
+                tdee = 1.55 * BMR
+            elif(activityLevel == 'Very Active'):
+                tdee = 1.725 * BMR
+            return Response({'tdee': tdee, 'bmr': BMR})
     except Exception as e:
-         Response({'status': 'ERROR', 'message': 'The error is ' + e})
-    
+         Response({'status': 'ERROR', 'message': 'The error is'+ str(e)  })
