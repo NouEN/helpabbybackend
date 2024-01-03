@@ -51,7 +51,7 @@ def calculateUserBMRandTDEE(request):
     try:
         response = validateUserInput(request)
         if(response == False):
-            return Response({'message': 'That\'s not Abby\'s measurements! Try again!'})
+            return Response({'status': 'ERROR', 'message': 'wrong input'})
         elif(response == True):
             age = int(request.data.get("age"))
             height = int(request.data.get("height"))
@@ -71,6 +71,6 @@ def calculateUserBMRandTDEE(request):
                 tdee = 1.55 * BMR
             elif(activityLevel == 'Very Active'):
                 tdee = 1.725 * BMR
-            return Response({'tdee': tdee, 'bmr': BMR})
+            return Response({'status': 'SUCCESS', 'tdee': round(tdee), 'bmr': round(BMR)})
     except Exception as e:
          Response({'status': 'ERROR', 'message': 'The error is'+ str(e)  })
