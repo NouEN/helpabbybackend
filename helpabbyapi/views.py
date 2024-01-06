@@ -21,7 +21,7 @@ def food_page(request):
 @api_view(['GET'])
 def getFoodlist(request):
     try:
-        foods = Food.objects.all()
+        foods = Food.objects.all().order_by('foodName')
         serializer = FoodSerializer(foods, many=True)
         return Response(serializer.data)
     except Exception as e :
@@ -30,7 +30,7 @@ def getFoodlist(request):
 @api_view(['GET'])
 def getMythlist(request):
     try:
-        myths = Myth.objects.all()
+        myths = Myth.objects.all().order_by('id')
         serializer = MythSerializer(myths, many=True)
         return Response(serializer.data)
     except Exception as e :
