@@ -59,9 +59,9 @@ def calculateUserBMRandTDEE(request):
             gender = request.data.get("gender")
             activityLevel = request.data.get("activityLevel")
             if(gender == 'Female'):
-                BMR = 9.247 *weight + 3.098 * height - 4.330 * age + 447.593
+                BMR = (7.38 * weight) + (607 * (height/100)) - (2.31 * age) + 43
             elif(gender == 'Male'):
-                BMR = 13.397*weight + 4.799 * height - 5.677 * age + 88.362  
+                BMR = (9.65 * weight) + (573 * (height/100)) - (5.08 * age) + 260  
 
             if(activityLevel == 'Sedentary'):
                 tdee = 1.2 * BMR
