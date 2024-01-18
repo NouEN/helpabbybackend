@@ -5,6 +5,8 @@ from django.http import JsonResponse
 
 from .models import Food, Myth
 from .api.serializers import FoodSerializer, MythSerializer
+import random
+import json
 
 @api_view(['GET'])
 def hello_world(request):
@@ -39,8 +41,10 @@ def getMythlist(request):
 def validateUserInput(request):
     try:
         print(request)
-        if(request.data["age"] == 15 and request.data["height"] == 160 and request.data["weight"] == 85 and request.data["activityLevel"] == "Sedentary" and request.data["gender"] == "Female"):
-            return True
+        if(int(request.data["age"]) and request.data["age"] > 0) :
+            if(int(request.data["height"]) and request.data["height"] > 0) :
+                if(int(request.data["weight"]) and request.data["weight"] > 0) :
+                    return True
         else :
             return False
     except Exception as e:

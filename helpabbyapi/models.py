@@ -10,13 +10,7 @@ class Myth(models.Model):
 class Food(models.Model):
     foodName = models.CharField(max_length=1000)
     calories = models.IntegerField()
+    category = models.CharField(max_length=1000, default='N/A')
     carbs = models.DecimalField(max_digits=1000, decimal_places=1)
     protein = models.DecimalField(max_digits=1000, decimal_places=1)
     fat = models.DecimalField(max_digits=1000, decimal_places=1)
-
-# class Calculator(forms.Form):
-#     age = forms.IntegerField(initial = 'age')
-#     gender = forms.CharField(initial='gender', max_length='50')
-#     height = forms.IntegerField(initial='height')
-#     weight = forms.IntegerField(initial='weight')
-#     activityLevel = forms.CharField(max_length=50, initial='activity level')  
