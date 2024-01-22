@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-@!wlccvhkxt6ni-442@b5cqyu37e_ucm4$@w^xgg7g-y6_r(c=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://letshelpabby.site/']
 
 
 # Application definition
@@ -123,9 +123,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_ROOT= '/home/letq4563/helpabbyapi/helpabbybackend/public/'
