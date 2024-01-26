@@ -41,12 +41,11 @@ def getMythlist(request):
 def validateUserInput(request):
     try:
         print(request)
-        if(int(request.data["age"]) and request.data["age"] > 0) :
-            if(int(request.data["height"]) and request.data["height"] > 0) :
-                if(int(request.data["weight"]) and request.data["weight"] > 0) :
-                    return True
-        else :
+        if((int(request.data["age"]) and request.data["age"] < 0) or (int(request.data["height"]) and request.data["height"] < 0 )
+           or (int(request.data["weight"]) and request.data["weight"] < 0)):
             return False
+        else:
+            return True
     except Exception as e:
          Response({'status': 'ERROR', 'message': 'The error is ' + str(e)})
 
@@ -55,7 +54,7 @@ def calculateUserBMRandTDEE(request):
     try:
         response = validateUserInput(request)
         if(response == False):
-            return Response({'status': 'ERROR', 'message': 'wrong input'})
+            return Response({'status': 'ERROR', 'message': 'Wrong Input!'})
         elif(response == True):
             age = int(request.data.get("age"))
             height = int(request.data.get("height"))
