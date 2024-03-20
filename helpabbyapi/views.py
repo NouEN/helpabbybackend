@@ -8,9 +8,6 @@ from .api.serializers import FoodSerializer, MythSerializer
 import random
 import json
 
-@api_view(['GET'])
-def hello_world(request):
-    return Response({'message': 'Hello, world!'})
 
 @api_view(['GET'])
 def home_page(request):
