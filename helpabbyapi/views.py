@@ -71,6 +71,18 @@ def calculateUserBMRandTDEE(request):
                 tdee = 1.55 * BMR
             elif(activityLevel == 'Very Active'):
                 tdee = 1.725 * BMR
-            return Response({'status': 'SUCCESS', 'tdee': round(tdee), 'bmr': round(BMR)})
+
+            BMI = weight / pow((height / 100), 2)
+
+    
+            if( BMI <= 18.5):
+                condition = "Underweight"
+            elif(BMI > 18.5 and BMI <= 23):
+                condition = "Normal"   
+            elif(BMI > 23 and BMI <= 27.5):
+                condition = "Overweight" 
+            elif(BMI >=27.5):
+                condition = "Obese"
+            return Response({'status': 'SUCCESS', 'tdee': round(tdee), 'bmr': round(BMR), 'bmi': round(BMI, 1), 'condition': condition})
     except Exception as e:
          Response({'status': 'ERROR', 'message': 'The error is'+ str(e)  })
